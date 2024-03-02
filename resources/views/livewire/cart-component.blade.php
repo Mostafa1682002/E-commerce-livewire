@@ -30,7 +30,8 @@
                                         @foreach (Cart::instance('cart')->content() as $item)
                                             <tr>
                                                 <td class="image product-thumbnail"><img
-                                                        src="{{ $item->model->main_image_1 }}" alt="#">
+                                                        src="{{ $item->model->main_image_1 }}"
+                                                        alt="{{ $item->name }}">
                                                 </td>
                                                 <td class="product-des product-name">
                                                     <h5 class="product-name"><a

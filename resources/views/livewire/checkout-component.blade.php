@@ -69,7 +69,8 @@
                                                 @foreach (Cart::instance('cart')->content() as $product)
                                                     <tr>
                                                         <td class="image product-thumbnail"><img
-                                                                src="{{ $product->main_image_1 }}" alt="#"></td>
+                                                                src="{{ $product->model->main_image_1 }}"
+                                                                alt="#"></td>
                                                         <td>
                                                             <h5><a
                                                                     href="{{ route('product.details', $product->id) }}">{{ $product->name }}</a>

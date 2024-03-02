@@ -106,7 +106,7 @@
                                         <a href="{{ route('admin.products.edit', $row->id) }}"
                                             class="btn btn-success btn-sm">Update</a>
 
-                                        <a href="{{ route('admin.orders.show', $row->id) }}"
+                                        <a href="{{ route('admin.products.show', $row->id) }}"
                                             class="btn btn-warning btn-sm text-white">
                                             Show</a>
                                     </td>

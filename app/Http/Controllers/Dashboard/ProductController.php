@@ -69,7 +69,6 @@ class ProductController extends Controller
 
             $product = Product::create($data);
 
-
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $name = uniqid(5) . $image->getClientOriginalName();
@@ -88,7 +87,9 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        // return $product;
+        return view('Dashboard.Products.show', compact('product'));
     }
 
     /**
@@ -96,8 +97,9 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $categories = Category::all();
         $product = Product::findOrFail($id);
-        return view('Dashboard.Products.edit', compact('product'));
+        return view('Dashboard.Products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -105,7 +107,63 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $product = Product::findOrFail($id);
+            $request->validate(
+                [
+                    'name' => "required|string|max:255",
+                    'slug' => "required|string|max:255",
+                    'short_description' => "nullable|string|max:255",
+                    'description' => "nullable|string",
+                    'regular_price' => "required|numeric",
+                    'sale_price' => "nullable|numeric",
+                    'featured' => "required|boolean",
+                    'status' => "required|boolean",
+                    'quantity' => "required|integer",
+                    'main_image_1' => "nullable|image|mimes:jpeg,png,jpg,gif",
+                    'main_image_2' => "nullable|image|mimes:jpeg,png,jpg,gif",
+                    'images.*' => "nullable|image|mimes:jpeg,png,jpg,gif",
+                ]
+            );
+            $data = $request->except('main_image_1', 'main_image_2', 'images');
+
+            if ($request->hasFile('main_image_1')) {
+                $image1 = uniqid(5) . $request->file('main_image_1')->getClientOriginalName();
+                $request->file('main_image_1')->storeAs('', $image1, 'products');
+                $data['main_image_1'] = "uploads/products/" . $image1;
+                //Delete Old Images
+                File::delete(ltrim(parse_url($product->main_image_1)['path'], '/'));
+            }
+
+            if ($request->hasFile('main_image_2')) {
+                $image2 = uniqid(5) . $request->file('main_image_2')->getClientOriginalName();
+                $request->file('main_image_2')->storeAs('', $image2, 'products');
+                $data['main_image_2'] = "uploads/products/" . $image2;
+                //Delete Old Images
+                File::delete(ltrim(parse_url($product->main_image_2)['path'], '/'));
+            }
+
+
+            if ($request->hasFile('images')) {
+                //Delete Old Images
+                if (count($product->images)) {
+                    foreach ($product->images as $image) {
+                        File::delete(ltrim(parse_url($image->image)['path'], '/'));
+                    }
+                }
+                //Add New Images
+                foreach ($request->file('images') as $image) {
+                    $name = uniqid(5) . $image->getClientOriginalName();
+                    $image->storeAs('', $name, 'products');
+                    $product->images()->create(['image' => "uploads/products/$name"]);
+                }
+            }
+
+            $product->update($data);
+            return redirect()->route('admin.products.index')->with('success', 'Success Update Product');
+        } catch (Exception $e) {
+            return redirect()->back()->withInput($request->all())->with('error', $e->getMessage());
+        }
     }
 
     /**
