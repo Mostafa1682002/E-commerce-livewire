@@ -1,0 +1,80 @@
+<div>
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{{ route('home') }}" rel="nofollow">Home</a>
+                    <span></span> Contact us
+                </div>
+            </div>
+        </div>
+        <section class="pt-50 pb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-10 m-auto">
+                        <div class="contact-from-area padding-20-row-col wow FadeInUp">
+                            <h3 class="mb-10 text-center">Drop Us a Line</h3>
+                            <p class="text-muted mb-30 text-center font-sm">Lorem ipsum dolor sit amet consectetur.</p>
+                            <form class="contact-form-style text-center" id="contact-form" action="#" method="post"
+                                wire:submit.prevent="send()">
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input wire:model="name" placeholder="Your Name" type="text">
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input wire:model="email" placeholder="Your Email" type="email">
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input wire:model="phone" placeholder="Your Phone" type="tel">
+                                            @error('phone')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input wire:model="subject" placeholder="Subject" type="text">
+                                            @error('subject')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="textarea-style mb-30">
+                                            <textarea wire:model="message" placeholder="Message"></textarea>
+                                            @error('message')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <button class="submit submit-auto-width" type="submit">Send message</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="form-messege"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+@if (session('success_contact'))
+    @script
+        <script>
+            toastr.success("{{ session('success_contact') }}");
+        </script>
+    @endscript
+@endif
