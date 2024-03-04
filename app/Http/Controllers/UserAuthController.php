@@ -63,7 +63,7 @@ class UserAuthController extends Controller
                 'password' => bcrypt($request->password),
             ]);
             auth('web')->login($user);
-            return redirect()->route('register')->with('success', 'Success Registration ');
+            return redirect()->route('home')->with('success', 'Success Registration ');
         } catch (Exception $e) {
             return redirect()->back()->withInput($request->all())->with('error', $e->getMessage());
         }
