@@ -19,6 +19,7 @@ class Order extends Model
         'subtotal',
         'tax',
         'total',
+        'discount',
         'status',
     ];
 

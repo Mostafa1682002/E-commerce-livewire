@@ -115,25 +115,31 @@
                                                                 <th>Order</th>
                                                                 <th>Date</th>
                                                                 <th>Status</th>
+                                                                <th>Products</th>
+                                                                <th>Discount</th>
                                                                 <th>Total</th>
-                                                                <th>Actions</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($orders as $order)
                                                                 <tr>
-                                                                    <td>#{{ $order->id }}</td>
+                                                                    <td>{{ $order->id }}</td>
                                                                     <td>
                                                                         {{ date('F d, Y', strtotime($order->created_at)) }}
                                                                     </td>
                                                                     <td><span
                                                                             class="badge {{ $order->status->badge() }}">{{ $order->status->order() }}</span>
                                                                     </td>
-                                                                    <td>${{ $order->total }} for
-                                                                        {{ count($order->products) }} item</td>
-                                                                    <td><a href="#"
-                                                                            class="btn-small d-block">View</a>
+                                                                    <td>
+                                                                        @foreach ($order->products as $product)
+                                                                            <p>{{ $product->name }}
+                                                                                <span>{{ $product->pivot->qty }} x
+                                                                                    {{ $product->pivot->price }}</span>
+                                                                            </p>
+                                                                        @endforeach
                                                                     </td>
+                                                                    <td>${{ $order->discount }} </td>
+                                                                    <td>${{ $order->total }} </td>
                                                                 </tr>
                                                             @endforeach
 

@@ -19,62 +19,64 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="col-6 col-md-4">
-                    {{-- =====================Add================= --}}
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#exampleModaladd"><i class="bx bx-plus"></i> Add New Slider
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModaladd" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
+                @can('slider-create')
+                    <div class="col-6 col-md-4">
+                        {{-- =====================Add================= --}}
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#exampleModaladd"><i class="bx bx-plus"></i> Add New Slider
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModaladd" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
 
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">New Slider</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New Slider</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="row g-3" method="POST" action="{{ route('admin.slider.store') }}"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="col-12">
+                                                <label for="inputAddress2" class="form-label">Top Title</label>
+                                                <input type="text" class="form-control" id="inputAddress2" name="top_title"
+                                                    required placeholder="Enter Top Title" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="inputAddress2" class="form-label"> Title</label>
+                                                <input type="text" class="form-control" id="inputAddress2" name="title"
+                                                    required placeholder="Enter Title" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="inputAddress2" class="form-label">Sub Title</label>
+                                                <input type="text" class="form-control" id="inputAddress2" name="sub_title"
+                                                    required placeholder="Enter Sub Title" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="inputAddress2" class="form-label">Offer</label>
+                                                <input type="text" class="form-control" id="inputAddress2" name="offer"
+                                                    required placeholder="Enter Offer" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="inputAddress2" class="form-label">Image</label>
+                                                <input name="image" type="file" class="dropify" data-height="100"
+                                                    accept=".jpg, .png, image/jpeg, image/png" />
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </div>
+                                    </form>
                                 </div>
-                                <div class="modal-body">
-                                    <form class="row g-3" method="POST" action="{{ route('admin.slider.store') }}"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="col-12">
-                                            <label for="inputAddress2" class="form-label">Top Title</label>
-                                            <input type="text" class="form-control" id="inputAddress2" name="top_title"
-                                                required placeholder="Enter Top Title" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="inputAddress2" class="form-label"> Title</label>
-                                            <input type="text" class="form-control" id="inputAddress2" name="title"
-                                                required placeholder="Enter Title" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="inputAddress2" class="form-label">Sub Title</label>
-                                            <input type="text" class="form-control" id="inputAddress2" name="sub_title"
-                                                required placeholder="Enter Sub Title" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="inputAddress2" class="form-label">Offer</label>
-                                            <input type="text" class="form-control" id="inputAddress2" name="offer"
-                                                required placeholder="Enter Offer" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="inputAddress2" class="form-label">Image</label>
-                                            <input name="image" type="file" class="dropify" data-height="100"
-                                                accept=".jpg, .png, image/jpeg, image/png" />
-                                        </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                    </button>
-                                    <button type="submit" class="btn btn-primary">Send</button>
-                                </div>
-                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endcan
 
 
 
@@ -108,130 +110,134 @@
                                                 alt=""></a>
                                     </td>
                                     <td>
-                                        {{-- =============Delate Request========================= --}}
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModald{{ $loop->index }}">Delete
-                                        </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModald{{ $loop->index }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Slider</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form class="row g-3" method="POST"
-                                                            action="{{ route('admin.slider.destroy', $row->id) }}">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <p>Are You Sure Delete Slider ??</p>
-                                                            <div class="col-12">
-                                                                <label for="inputAddress2"
-                                                                    class="form-label">Title</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="inputAddress2" name="title" readonly
-                                                                    value="{{ $row->title }}">
-                                                            </div>
+                                        @can('slider-delete')
+                                            {{-- =============Delate Request========================= --}}
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModald{{ $loop->index }}">Delete
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModald{{ $loop->index }}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Delete Slider</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form class="row g-3" method="POST"
+                                                                action="{{ route('admin.slider.destroy', $row->id) }}">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <p>Are You Sure Delete Slider ??</p>
+                                                                <div class="col-12">
+                                                                    <label for="inputAddress2"
+                                                                        class="form-label">Title</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputAddress2" name="title" readonly
+                                                                        value="{{ $row->title }}">
+                                                                </div>
 
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close
-                                                        </button>
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </div>
+                                        @endcan
+
+                                        @can('slider-edit')
+                                            {{-- =============Upadate========================= --}}
+                                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal{{ $loop->index }}">Update
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal{{ $loop->index }}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Update
+                                                                Slider</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form class="row g-3" method="POST"
+                                                                action="{{ route('admin.slider.update', $row->id) }}"
+                                                                enctype="multipart/form-data">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="col-12">
+                                                                    <label for="inputAddress2" class="form-label">Top
+                                                                        Title</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputAddress2" name="top_title" required
+                                                                        placeholder="Enter Top Title"
+                                                                        value="{{ $row->top_title }}">
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="inputAddress2" class="form-label">
+                                                                        Title</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputAddress2" name="title" required
+                                                                        placeholder="Enter Title"
+                                                                        value="{{ $row->title }}">
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="inputAddress2" class="form-label">Sub
+                                                                        Title</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputAddress2" name="sub_title" required
+                                                                        placeholder="Enter Sub Title"
+                                                                        value="{{ $row->sub_title }}">
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="inputAddress2"
+                                                                        class="form-label">Offer</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputAddress2" name="offer" required
+                                                                        placeholder="Enter Offer"
+                                                                        value="{{ $row->offer }}">
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="inputAddress2"
+                                                                        class="form-label">Status</label>
+                                                                    <select name="status" id=""
+                                                                        class="form-select">
+                                                                        <option @selected($row->status->slider() == 'Disactive') value="0">
+                                                                            DisActive</option>
+                                                                        <option @selected($row->status->slider() == 'Active') value="1">
+                                                                            Active</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="inputAddress2" class="form-label">Update
+                                                                        Image</label>
+                                                                    <input name="image" type="file" class="dropify"
+                                                                        data-height="100"
+                                                                        accept=".jpg, .png, image/jpeg, image/png" />
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-success">Update</button>
+                                                        </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endcan
 
-
-                                        {{-- =============Upadate========================= --}}
-                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal{{ $loop->index }}">Update
-                                        </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal{{ $loop->index }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Update
-                                                            Slider</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form class="row g-3" method="POST"
-                                                            action="{{ route('admin.slider.update', $row->id) }}"
-                                                            enctype="multipart/form-data">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <div class="col-12">
-                                                                <label for="inputAddress2" class="form-label">Top
-                                                                    Title</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="inputAddress2" name="top_title" required
-                                                                    placeholder="Enter Top Title"
-                                                                    value="{{ $row->top_title }}">
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="inputAddress2" class="form-label">
-                                                                    Title</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="inputAddress2" name="title" required
-                                                                    placeholder="Enter Title"
-                                                                    value="{{ $row->title }}">
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="inputAddress2" class="form-label">Sub
-                                                                    Title</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="inputAddress2" name="sub_title" required
-                                                                    placeholder="Enter Sub Title"
-                                                                    value="{{ $row->sub_title }}">
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="inputAddress2"
-                                                                    class="form-label">Offer</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="inputAddress2" name="offer" required
-                                                                    placeholder="Enter Offer"
-                                                                    value="{{ $row->offer }}">
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="inputAddress2"
-                                                                    class="form-label">Status</label>
-                                                                <select name="status" id=""
-                                                                    class="form-select">
-                                                                    <option @selected($row->status->slider() == 'Disactive') value="0">
-                                                                        DisActive</option>
-                                                                    <option @selected($row->status->slider() == 'Active') value="1">
-                                                                        Active</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="inputAddress2" class="form-label">Update
-                                                                    Image</label>
-                                                                <input name="image" type="file" class="dropify"
-                                                                    data-height="100"
-                                                                    accept=".jpg, .png, image/jpeg, image/png" />
-                                                            </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close
-                                                        </button>
-                                                        <button type="submit" class="btn btn-success">Update</button>
-                                                    </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </td>
 
 

@@ -20,11 +20,12 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             UserTableSeeder::class,
-            AdminTableSeeder::class,
             CategoryTableSeeder::class,
             ProductTableSeeder::class,
             HomeSliderTableSeeder::class,
-            SettingTableSeederder::class
+            SettingTableSeederder::class,
+            PermissionTableSeeder::class,
+            AdminTableSeeder::class,
         ]);
     }
 }

@@ -131,6 +131,10 @@
                                             <td>Free</td>
                                         </tr>
                                         <tr>
+                                            <th>Discount:</th>
+                                            <td>${{ $order->discount }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Total:</th>
                                             <td>${{ $order->total }}</td>
                                         </tr>

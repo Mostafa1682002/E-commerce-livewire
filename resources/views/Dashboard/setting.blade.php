@@ -125,12 +125,14 @@
                                         <img class="w-100" src=" {{ $setting->logo }}" alt="45" />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="submit" class="btn btn-primary px-4" value="Save Changes" />
+                                @can('setting-update')
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="submit" class="btn btn-primary px-4" value="Save Changes" />
+                                        </div>
                                     </div>
-                                </div>
+                                @endcan
                             </div>
                         </form>
                     </div>

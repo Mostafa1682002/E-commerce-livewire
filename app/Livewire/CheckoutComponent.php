@@ -16,6 +16,7 @@ class CheckoutComponent extends Component
     public $address2 = '';
     public $city = '';
     public $notes = '';
+    public $discount, $totalAfterDiscount;
 
 
 
@@ -43,7 +44,8 @@ class CheckoutComponent extends Component
             'notes' => $this->notes,
             'subtotal' => str_replace(',', '', Cart::instance('cart')->subtotal()),
             'tax' => Cart::instance('cart')->tax(),
-            'total' => str_replace(',', '', Cart::instance('cart')->total()),
+            'total' => str_replace(',', '', Cart::instance('cart')->total()) - $this->discount,
+            'discount' => $this->discount,
         ]);
 
 
@@ -58,11 +60,20 @@ class CheckoutComponent extends Component
         }
 
         Cart::instance('cart')->destroy();
+        session()->forget('coupon');
         return redirect()->route('home')->with('success', 'Success Order');
     }
 
     public function render()
     {
+        if (session()->has('coupon')) {
+            if (session()->get('coupon')['type'] == 'fixed') {
+                $this->discount = session()->get('coupon')['value'];
+            } else {
+                $this->discount = (str_replace(',', '', Cart::instance('cart')->total()) * session()->get('coupon')['value']) / 100;
+            }
+            $this->totalAfterDiscount = str_replace(',', '', Cart::instance('cart')->total()) - $this->discount;
+        }
         return view('livewire.checkout-component')
             ->layout('layouts.app', ['title' => $this->title]);
     }

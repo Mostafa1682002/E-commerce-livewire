@@ -9,7 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminAuthController extends Controller
 {
-    public function login_form(){
+    public function __construct()
+    {
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('auth:admin')->only('logout');
+    }
+    public function login_form()
+    {
         return view('Dashboard.login');
     }
 

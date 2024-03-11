@@ -94,12 +94,27 @@
                                                     <th>Shipping</th>
                                                     <td colspan="2"><em>Free Shipping</em></td>
                                                 </tr>
-                                                <tr>
-                                                    <th>Total</th>
-                                                    <td colspan="2" class="product-subtotal"><span
-                                                            class="font-xl text-brand fw-900">${{ Cart::instance('cart')->total() }}</span>
-                                                    </td>
-                                                </tr>
+                                                @if (session()->has('coupon'))
+                                                    <tr>
+                                                        <th>Discount</th>
+                                                        <td colspan="2" class="product-subtotal"><span
+                                                                class="font-xl text-brand fw-900">-${{ $discount }}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Total</th>
+                                                        <td colspan="2" class="product-subtotal"><span
+                                                                class="font-xl text-brand fw-900">${{ $totalAfterDiscount }}</span>
+                                                        </td>
+                                                    </tr>
+                                                @else
+                                                    <tr>
+                                                        <th>Total</th>
+                                                        <td colspan="2" class="product-subtotal"><span
+                                                                class="font-xl text-brand fw-900">${{ Cart::instance('cart')->total() }}</span>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             </tbody>
                                         </table>
 

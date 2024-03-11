@@ -71,44 +71,12 @@
                             </div>
                             <div class="cart-action text-end">
                                 <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a>
-                                <a class="btn "><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
+                                <a class="btn" href="{{ route('checkout') }}"><i
+                                        class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                             </div>
                             <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                             <div class="row mb-50">
                                 <div class="col-lg-6 col-md-12">
-                                    <div class="heading_s1 mb-3">
-                                        <h4>Calculate Shipping</h4>
-                                    </div>
-                                    <p class="mt-15 mb-30">Flat rate: <span class="font-xl text-brand fw-900">5%</span>
-                                    </p>
-                                    <form class="field_form shipping_calculator">
-                                        <div class="form-row">
-                                            <div class="form-group col-lg-12">
-                                                <div class="custom_select">
-                                                    <select class="form-control select-active">
-                                                        <option value="">Choose a option...</option>
-                                                        <option value="AX">Aland Islands</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="form-group col-lg-6">
-                                                <input required="required" placeholder="State / Country" name="name"
-                                                    type="text">
-                                            </div>
-                                            <div class="form-group col-lg-6">
-                                                <input required="required" placeholder="PostCode / ZIP" name="name"
-                                                    type="text">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-lg-12">
-                                                <button class="btn  btn-sm"><i
-                                                        class="fi-rs-shuffle mr-10"></i>Update</button>
-                                            </div>
-                                        </div>
-                                    </form>
                                     <div class="mb-30 mt-50">
                                         <div class="heading_s1 mb-3">
                                             <h4>Apply Coupon</h4>
@@ -116,17 +84,36 @@
                                         <div class="total-amount">
                                             <div class="left">
                                                 <div class="coupon">
-                                                    <form action="#" target="_blank">
-                                                        <div class="form-row row justify-content-center">
-                                                            <div class="form-group col-lg-6">
-                                                                <input class="font-medium" name="Coupon"
-                                                                    placeholder="Enter Your Coupon">
+                                                    <form action="#" wire:submit.prevent="applyCouponCode">
+                                                        @if (session()->has('coupon'))
+                                                            <div class="form-row row justify-content-center">
+                                                                <div class="form-group col-lg-6">
+                                                                    <input class="font-medium" name="code"
+                                                                        value="{{ session('coupon')['code'] }}"
+                                                                        readonly>
+                                                                </div>
+                                                                <div class="form-group col-lg-6">
+                                                                    <button wire:click.prevent="removeCoupon"
+                                                                        class="btn btn-sm"><i
+                                                                            class="fi-rs-trash mr-10"></i>Remove
+                                                                        Coupon</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="form-group col-lg-6">
-                                                                <button class="btn  btn-sm"><i
-                                                                        class="fi-rs-label mr-10"></i>Apply</button>
+                                                        @else
+                                                            <div class="form-row row justify-content-center">
+                                                                <div class="form-group col-lg-6">
+                                                                    <input class="font-medium" wire:model="code"
+                                                                        name="code" placeholder="Enter Your Coupon">
+                                                                    @error('code')
+                                                                        <p class="text-danger">{{ $message }}</p>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="form-group col-lg-6">
+                                                                    <button type="submit" class="btn  btn-sm"><i
+                                                                            class="fi-rs-label mr-10"></i>Apply</button>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </form>
                                                 </div>
                                             </div>
@@ -159,12 +146,28 @@
                                                             Free Shipping
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="cart_total_label">Total</td>
-                                                        <td class="cart_total_amount"><strong><span
-                                                                    class="font-xl fw-900 text-brand">${{ Cart::total() }}</span></strong>
-                                                        </td>
-                                                    </tr>
+                                                    @if (session()->has('coupon'))
+                                                        <tr>
+                                                            <td class="cart_total_label">Discount</td>
+                                                            <td class="cart_total_amount"><strong><span
+                                                                        class="font-xl fw-900 text-brand">-
+                                                                        ${{ $discount }}</span></strong>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="cart_total_label">Total</td>
+                                                            <td class="cart_total_amount"><strong><span
+                                                                        class="font-xl fw-900 text-brand">${{ $totalAfterDiscount }}</span></strong>
+                                                            </td>
+                                                        </tr>
+                                                    @else
+                                                        <tr>
+                                                            <td class="cart_total_label">Total</td>
+                                                            <td class="cart_total_amount"><strong><span
+                                                                        class="font-xl fw-900 text-brand">${{ Cart::instance('cart')->total() }}</span></strong>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -188,6 +191,22 @@
     @script
         <script>
             toastr.success("{{ session('success_cart') }}");
+        </script>
+    @endscript
+@endif
+
+
+@if (session('coupon_error'))
+    @script
+        <script>
+            toastr.error("{{ session('coupon_error') }}");
+        </script>
+    @endscript
+@endif
+@if (session('coupon_success'))
+    @script
+        <script>
+            toastr.success("{{ session('coupon_success') }}");
         </script>
     @endscript
 @endif
