@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\DeleteOldNotification;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,6 +15,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('php artisan optimize:clear')->everyFiveSecond();
+        $schedule->job(new DeleteOldNotification)->daily();
     }
 
     /**

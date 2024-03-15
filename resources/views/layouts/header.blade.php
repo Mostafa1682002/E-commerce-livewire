@@ -57,20 +57,58 @@
                           <li class="nav-item dropdown dropdown-large">
                               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative"
                                   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  <span class="alert-count">7</span>
+                                  <span id="noti_count"
+                                      class="alert-count">{{ count(auth('admin')->user()->unreadNotifications) }}</span>
                                   <i class="bx bx-bell"></i>
                               </a>
                               <div class="dropdown-menu dropdown-menu-end">
-                                  <a href="javascript:;">
+                                  <a href="#">
                                       <div class="msg-header">
                                           <p class="msg-header-title">Notifications</p>
-                                          <p class="msg-header-clear ms-auto">
-                                              Marks all as read
-                                          </p>
+                                          @if (count(auth('admin')->user()->unreadNotifications))
+                                              <a href="{{ route('admin.markAsRead') }}"
+                                                  class="msg-header-clear ms-auto">
+                                                  Marks all as read
+                                              </a>
+                                          @endif
                                       </div>
                                   </a>
-                                  <div class="header-notifications-list">
-                                      <a class="dropdown-item" href="javascript:;">
+                                  <div class="header-notifications-list" id="header-notifications-list">
+                                      @foreach (auth('admin')->user()->notifications as $notification)
+                                          <a class="dropdown-item"
+                                              style="{{ $notification->read_at == null ? 'background-color: #f8f9fa;' : '' }}"
+                                              href="{{ route('admin.orders.show', $notification->data['order_id']) }}">
+                                              <div class="d-flex align-items-center">
+                                                  <div class="notify bg-light-danger text-danger">
+                                                      <i class="bx bx-cart-alt"></i>
+                                                  </div>
+                                                  <div class="flex-grow-1">
+                                                      <h6 class="msg-name">
+                                                          New Orders
+                                                          <span class="msg-time float-end">
+                                                              @php
+                                                                  // تحديد الوقت الحالي
+                                                                  $currentDateTime = \Illuminate\Support\Carbon::now();
+                                                                  // تحديد الوقت المذكور
+                                                                  $specifiedDateTime = \Illuminate\Support\Carbon::createFromFormat(
+                                                                      'Y-m-d H:i:s',
+                                                                      $notification->created_at,
+                                                                  );
+                                                                  // الفارق بين الوقتين بشكل بشري
+                                                                  $timeDiff = $specifiedDateTime->diffForHumans(
+                                                                      $currentDateTime,
+                                                                  );
+                                                                  // إرجاع النتيجة
+                                                              @endphp
+                                                              {{ $timeDiff }}
+                                                          </span>
+                                                      </h6>
+                                                      <p class="msg-info">You have recived new orders</p>
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      @endforeach
+                                      {{-- <a class="dropdown-item" href="javascript:;">
                                           <div class="d-flex align-items-center">
                                               <div class="notify bg-light-primary text-primary">
                                                   <i class="bx bx-group"></i>
@@ -80,20 +118,6 @@
                                                       New Customers<span class="msg-time float-end">14 Sec ago</span>
                                                   </h6>
                                                   <p class="msg-info">5 new user registered</p>
-                                              </div>
-                                          </div>
-                                      </a>
-                                      <a class="dropdown-item" href="javascript:;">
-                                          <div class="d-flex align-items-center">
-                                              <div class="notify bg-light-danger text-danger">
-                                                  <i class="bx bx-cart-alt"></i>
-                                              </div>
-                                              <div class="flex-grow-1">
-                                                  <h6 class="msg-name">
-                                                      New Orders
-                                                      <span class="msg-time float-end">2 min ago</span>
-                                                  </h6>
-                                                  <p class="msg-info">You have recived new orders</p>
                                               </div>
                                           </div>
                                       </a>
@@ -202,11 +226,11 @@
                                                   <p class="msg-info">45% less alerts last 4 weeks</p>
                                               </div>
                                           </div>
-                                      </a>
+                                      </a> --}}
                                   </div>
                                   <a href="javascript:;">
                                       <div class="text-center msg-footer">
-                                          View All Notifications
+                                          {{-- View All Notifications --}}
                                       </div>
                                   </a>
                               </div>

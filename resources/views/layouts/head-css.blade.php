@@ -34,4 +34,5 @@
     {{-- DropiFy --}}
     <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
     <title>{{ $title ?? 'Dashboard' }}</title>
+    @livewireStyles
 </head>

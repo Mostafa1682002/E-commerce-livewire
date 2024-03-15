@@ -62,6 +62,7 @@ Route::get('/my-account', MyAccountComponent::class)->name('my_account')->middle
 
 
 Route::get('/test', function () {
+    return auth('admin')->user()->notifications;
     session()->forget('coupon');
     return 1;
     // return Cart::instance('wishlist')->content();
@@ -99,4 +100,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     //Admins
     Route::resource('admins', AdminController::class);
     Route::resource('roles', RoleController::class);
+    Route::get('markAsRead', function () {
+        auth('admin')->user()->unreadNotifications->markAsRead();
+        return redirect()->back()->with('success', 'Notifications Readed');
+    })->name('markAsRead');
 });

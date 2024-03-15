@@ -128,3 +128,17 @@
              toastr.error("{{ session('error') }}");
          </script>
      @endif
+
+
+     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+     <script>
+         // Enable pusher logging - don't include this in production
+         Pusher.logToConsole = true;
+         var pusher = new Pusher('25baddaac888f81e0f21', {
+             cluster: 'ap1'
+         });
+         var channel = pusher.subscribe('ecommerce-livewire');
+         channel.bind('order-notification', function(data) {
+             toastr.success('New Order')
+         });
+     </script>

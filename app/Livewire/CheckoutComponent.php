@@ -2,8 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Events\OrderNotification;
+use App\Jobs\NewOrderJob;
+use App\Models\Admin;
 use App\Models\Order;
+use App\Notifications\NewOrder;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class CheckoutComponent extends Component
@@ -16,7 +21,7 @@ class CheckoutComponent extends Component
     public $address2 = '';
     public $city = '';
     public $notes = '';
-    public $discount, $totalAfterDiscount;
+    public $discount = 0, $totalAfterDiscount;
 
 
 
@@ -59,9 +64,12 @@ class CheckoutComponent extends Component
             $order->products()->attach($product);
         }
 
+        //Dispatch Job
+        dispatch(new NewOrderJob($order));
+
         Cart::instance('cart')->destroy();
         session()->forget('coupon');
-        return redirect()->route('home')->with('success', 'Success Order');
+        return redirect()->route('home')->with('success', 'Success Apply Order');
     }
 
     public function render()

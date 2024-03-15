@@ -7,7 +7,9 @@
     <!--wrapper-->
     <div class="wrapper">
         @include('layouts.sidbar')
-        @include('layouts.header')
+        {{-- @include('layouts.header') --}}
+        {{-- {{ $slot }} --}}
+        @livewire('dashboard.header-component')
         <!--start page wrapper -->
         <div class="page-wrapper">
             @yield('content')
@@ -16,6 +18,7 @@
         @include('layouts.footer')
     </div>
     @include('layouts.footer-js')
+    @livewireScripts
 </body>
 
 </html>

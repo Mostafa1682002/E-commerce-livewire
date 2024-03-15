@@ -1,13 +1,13 @@
 @extends('layouts.master', ['title' => 'Details Order'])
 
-@section('content')
-    <style>
-        @media print {
-            #print_Button {
-                display: none !important;
-            }
+<style>
+    @media print {
+        #print_Button {
+            display: none !important;
         }
-    </style>
+    }
+</style>
+@section('content')
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">

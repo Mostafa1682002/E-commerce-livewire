@@ -48,44 +48,46 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        {{-- =============Delate Request========================= --}}
+                                        @can('')
+                                            {{-- =============Delate Request========================= --}}
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModald{{ $loop->index }}">Delete
-                                        </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModald{{ $loop->index }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Admin</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form class="row g-3" method="POST"
-                                                            action="{{ route('admin.admins.destroy', $row->id) }}">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <p>Are You Sure Delete Admin ??</p>
-                                                            <div class="col-12">
-                                                                <label for="inputAddress2" class="form-label">Name</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="inputAddress2" name="name" readonly
-                                                                    value="{{ $row->name }}">
-                                                            </div>
+                                        data-bs-target="#exampleModald{{ $loop->index }}">Delete
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModald{{ $loop->index }}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Admin</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="row g-3" method="POST"
+                                                        action="{{ route('admin.admins.destroy', $row->id) }}">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <p>Are You Sure Delete Admin ??</p>
+                                                        <div class="col-12">
+                                                            <label for="inputAddress2" class="form-label">Name</label>
+                                                            <input type="text" class="form-control"
+                                                                id="inputAddress2" name="name" readonly
+                                                                value="{{ $row->name }}">
+                                                        </div>
 
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close
-                                                        </button>
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                                        </form>
-                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close
+                                                    </button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                        @endcan
                                         {{-- =============Upadate========================= --}}
                                         <a href="{{ route('admin.admins.edit', $row->id) }}"
                                             class="btn btn-success btn-sm">Update</a>
