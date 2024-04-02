@@ -2,16 +2,17 @@
 
 namespace App\Livewire\Dashboard;
 
-use Livewire\Component;
+// use Livewire\Component;
 
-class HeaderComponent extends Component
+class HeaderComponent  extends \Livewire\Component
 {
     public $numNotificationUnread, $notifications;
+
 
     public function render()
     {
         $this->numNotificationUnread = count(auth('admin')->user()->unreadNotifications);
         $this->notifications = auth('admin')->user()->notifications;
-        return view('livewire.dashboard.header-component')->layout('layout.master');
+        return view('livewire.dashboard.header-component')->layout('layouts.master');
     }
 }

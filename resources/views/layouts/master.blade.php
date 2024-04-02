@@ -8,8 +8,8 @@
     <div class="wrapper">
         @include('layouts.sidbar')
         {{-- @include('layouts.header') --}}
-        {{-- {{ $slot }} --}}
         @livewire('dashboard.header-component')
+
         <!--start page wrapper -->
         <div class="page-wrapper">
             @yield('content')

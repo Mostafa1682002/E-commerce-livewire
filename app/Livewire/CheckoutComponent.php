@@ -66,7 +66,7 @@ class CheckoutComponent extends Component
 
         //Dispatch Job
         dispatch(new NewOrderJob($order));
-
+        //Delete Item from Cart
         Cart::instance('cart')->destroy();
         session()->forget('coupon');
         return redirect()->route('home')->with('success', 'Success Apply Order');
