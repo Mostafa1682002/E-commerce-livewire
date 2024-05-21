@@ -44,16 +44,6 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        $data = auth('admin')->user()->unreadNotifications;
-        $notifications = collect($data);
-        // البحث عن الإشعار الذي يحتوي على رقم الطلب order_id يساوي 10
-        $orderNotification = $notifications->first(function ($notification) use ($id) {
-            return $notification['data']['order_id'] == $id;
-        });
-        if ($orderNotification && $orderNotification->read_at == null) {
-            $orderNotification->update(['read_at' => now()]);
-        }
-
         $order = Order::findOrFail($id);
         $setting = Setting::first();
         return view('Dashboard.Orders.show', compact('order', 'setting'));

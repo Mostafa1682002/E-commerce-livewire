@@ -35,8 +35,8 @@
                 </h4>
             </div>
             <div class="shopping-cart-button">
-                <a href="{{ route('cart') }}" class="outline">View cart</a>
-                <a href="{{ route('checkout') }}">Checkout</a>
+                <a wire:navigate href="{{ route('cart') }}" class="outline">View cart</a>
+                <a wire:navigate href="{{ route('checkout') }}">Checkout</a>
             </div>
         </div>
     </div>

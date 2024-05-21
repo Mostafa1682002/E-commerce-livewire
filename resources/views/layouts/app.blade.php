@@ -115,8 +115,8 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="{{ route('home') }}"><img src="{{ \App\Models\Setting::first()->logo }}"
-                                alt="logo"></a>
+                        <a wire:navigate href="{{ route('home') }}"><img
+                                src="{{ \App\Models\Setting::first()->logo }}" alt="logo"></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
                         <div class="main-categori-wrap d-none d-lg-block">
@@ -126,7 +126,7 @@
                             <div class="categori-dropdown-wrap categori-dropdown-active-large">
                                 <ul>
                                     @foreach ($categories->all() as $category)
-                                        <li><a href="{{ route('shop') }}"><i
+                                        <li><a wire:navigate href="{{ route('shop') }}"><i
                                                     class="surfsidemedia-font-high-heels"></i>{{ $category->name }}</a>
                                         </li>
                                     @endforeach
@@ -136,17 +136,18 @@
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                             <nav>
                                 <ul>
-                                    <li><a class="{{ $title == 'Home' ? 'active' : '' }}"
+                                    <li><a wire:navigate class="{{ $title == 'Home' ? 'active' : '' }}"
                                             href="{{ route('home') }}">Home
                                         </a></li>
-                                    <li><a class="{{ $title == 'About' ? 'active' : '' }}"
+                                    <li><a wire:navigate class="{{ $title == 'About' ? 'active' : '' }}"
                                             href="{{ route('about') }}">About</a></li>
-                                    <li><a class="{{ $title == 'Shop' || $title == 'Details Product' ? 'active' : '' }}"
+                                    <li><a wire:navigate
+                                            class="{{ $title == 'Shop' || $title == 'Details Product' ? 'active' : '' }}"
                                             href="{{ route('shop') }}">Shop</a></li>
-                                    <li><a class="{{ $title == 'Contact' ? 'active' : '' }}"
+                                    <li><a wire:navigate class="{{ $title == 'Contact' ? 'active' : '' }}"
                                             href="{{ route('contact') }}">Contact</a></li>
                                     @auth
-                                        <li><a class="{{ $title == 'My Account' ? 'active' : '' }}"
+                                        <li><a wire:navigate class="{{ $title == 'My Account' ? 'active' : '' }}"
                                                 href="{{ route('my_account') }}">My Account</a>
                                         </li>
                                     @endauth

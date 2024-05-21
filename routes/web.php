@@ -61,19 +61,8 @@ Route::get('/my-account', MyAccountComponent::class)->name('my_account')->middle
 
 
 
-Route::get('/test', function () {
-    return auth('admin')->user()->notifications;
-    session()->forget('coupon');
-    return 1;
-    // return Cart::instance('wishlist')->content();
-    // return Cart::instance('wishlist')->destroy();
-    return Cart::instance('cart')->content();
-    // return Cart::instance('cart')->destroy();
-});
-
 ///Dashboard
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-
     Route::group(['controller' => AdminAuthController::class], function () {
         Route::get('login', 'login_form')->name('login.form');
         Route::post('login', 'login')->name('login');
@@ -104,4 +93,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         auth('admin')->user()->unreadNotifications->markAsRead();
         return redirect()->back()->with('success', 'Notifications Readed');
     })->name('markAsRead');
+});
+
+
+
+
+Route::get('/test', function () {
+    return auth('admin')->user()->notifications;
+    session()->forget('coupon');
+    return 1;
+    // return Cart::instance('wishlist')->content();
+    // return Cart::instance('wishlist')->destroy();
+    return Cart::instance('cart')->content();
+    // return Cart::instance('cart')->destroy();
 });

@@ -140,5 +140,30 @@
          var channel = pusher.subscribe('ecommerce-livewire');
          channel.bind('order-notification', function(data) {
              toastr.success('New Order')
+             $('#count-notifications').load(window.location.href + ' #count-notifications')
+             $('#notifications').load(window.location.href + ' #notifications')
          });
+     </script>
+
+     <script>
+         $(document).ready(function() {
+             $(document).on("click", "#icon-notifications", function() {
+                 $.ajax({
+                     url: {{ Illuminate\Support\Js::from(route('admin.markAsRead')) }},
+                     method: 'get',
+                     success: function(data) {
+                         $('#count-notifications').load(' #count-notifications > *')
+                         $('#notifications').load(' #notifications > *')
+                     },
+                     error: function() {
+                         alert('Please Try Again......')
+                     }
+                 });
+             });
+         });
+
+         //  setInterval(() => {
+         //      $('#count-notifications').load(window.location.href + ' #count-notifications')
+         //      $('#notifications').load(window.location.href + ' #notifications')
+         //  }, 5000);
      </script>

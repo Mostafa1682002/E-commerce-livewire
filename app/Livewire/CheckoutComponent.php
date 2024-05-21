@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Events\OrderNotification;
 use App\Jobs\NewOrderJob;
+use App\Livewire\Dashboard\HeaderComponent;
 use App\Models\Admin;
 use App\Models\Order;
 use App\Notifications\NewOrder;
@@ -68,6 +69,7 @@ class CheckoutComponent extends Component
         dispatch(new NewOrderJob($order));
         //Delete Item from Cart
         Cart::instance('cart')->destroy();
+        $this->dispatch('noti');
         session()->forget('coupon');
         return redirect()->route('home')->with('success', 'Success Apply Order');
     }

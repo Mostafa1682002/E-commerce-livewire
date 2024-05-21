@@ -2,6 +2,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    @livewireStyles
     <!--favicon-->
     <link rel="icon" href="{{ asset('assets/images/favicon-32x32.png" type="image/png') }}" />
     <!--plugins-->
@@ -34,5 +35,4 @@
     {{-- DropiFy --}}
     <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
     <title>{{ $title ?? 'Dashboard' }}</title>
-    @livewireStyles
 </head>
