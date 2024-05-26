@@ -158,10 +158,3 @@
         </section>
     </main>
 </div>
-@if (session('success_up'))
-    @script
-        <script>
-            toastr.success("{{ session('success_up') }}");
-        </script>
-    @endscript
-@endif

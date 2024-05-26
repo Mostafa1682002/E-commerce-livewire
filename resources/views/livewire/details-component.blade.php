@@ -418,7 +418,9 @@
                                                                     class="fi-rs-shuffle"></i></a>
                                                         </div>
                                                         @php
-                                                            $date_create = \Carbon\Carbon::parse(date('Y-m-d', strtotime($product->created_at)));
+                                                            $date_create = \Carbon\Carbon::parse(
+                                                                date('Y-m-d', strtotime($product->created_at)),
+                                                            );
                                                             $date_now = \Carbon\Carbon::parse(date('Y-m-d'));
                                                             $diffInDays = $date_create->diffInDays($date_now);
                                                         @endphp
@@ -492,18 +494,3 @@
         </section>
     </main>
 </div>
-
-@if (session('success_wishlist'))
-    @script
-        <script>
-            toastr.success("{{ session('success_wishlist') }}");
-        </script>
-    @endscript
-@endif
-@if (session('success_wishlist_r'))
-    @script
-        <script>
-            toastr.success("{{ session('success_wishlist_r') }}");
-        </script>
-    @endscript
-@endif

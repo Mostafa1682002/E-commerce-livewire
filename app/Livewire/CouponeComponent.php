@@ -20,7 +20,7 @@ class CouponeComponent extends Component
         );
         $coupon = Coupone::where('code', $this->code)->where('cart_value', '<=', str_replace(',', '', Cart::instance('cart')->total()))->first();
         if (!$coupon) {
-            session()->flash('coupon_error', 'Coupon code is invalid!');
+            $this->dispatch('flashMessage', ['type' => 'error', 'message' => 'Coupon code is invalid!']);
             return;
         }
 
@@ -30,7 +30,7 @@ class CouponeComponent extends Component
             'value' => $coupon->value,
             'cart_value' => $coupon->cart_value
         ]);
-        session()->flash('coupon_success', 'Success Apply Coupon');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Success Apply Coupon']);
     }
 
     public function calculateDiscounts()
@@ -54,7 +54,7 @@ class CouponeComponent extends Component
     public function removeCoupon()
     {
         session()->forget('coupon');
-        session()->flash('coupon_success', 'Success Remove Coupon code ');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Success Remove Coupon code ']);
     }
 
     public function render()

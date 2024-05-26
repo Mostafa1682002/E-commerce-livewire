@@ -14,7 +14,7 @@ class CartIconComponent extends Component
     public function removeCart($rowId)
     {
         Cart::instance('cart')->remove($rowId);
-        session()->flash('success_icon_cart', 'Removed Item From Cart');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Removed Item From Cart']);
         $this->dispatch('refreshCart');
     }
 

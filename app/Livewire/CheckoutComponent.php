@@ -2,14 +2,9 @@
 
 namespace App\Livewire;
 
-use App\Events\OrderNotification;
 use App\Jobs\NewOrderJob;
-use App\Livewire\Dashboard\HeaderComponent;
-use App\Models\Admin;
-use App\Models\Order;
-use App\Notifications\NewOrder;
+
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class CheckoutComponent extends Component

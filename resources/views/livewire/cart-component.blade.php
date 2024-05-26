@@ -186,27 +186,3 @@
         </section>
     </main>
 </div>
-
-@if (session('success_cart'))
-    @script
-        <script>
-            toastr.success("{{ session('success_cart') }}");
-        </script>
-    @endscript
-@endif
-
-
-@if (session('coupon_error'))
-    @script
-        <script>
-            toastr.error("{{ session('coupon_error') }}");
-        </script>
-    @endscript
-@endif
-@if (session('coupon_success'))
-    @script
-        <script>
-            toastr.success("{{ session('coupon_success') }}");
-        </script>
-    @endscript
-@endif

@@ -26,7 +26,7 @@ class ContactComponent extends Component
             'message' => "required|string|min:3"
         ]);
         Contact::create($validData);
-        session()->flash('success_contact', 'Message Successfuly Sended');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Message Successfuly Sended']);
         $this->reset();
     }
 

@@ -17,7 +17,8 @@ class HomeComponent extends Component
     {
         $product = Product::findOrFail($id);
         Cart::instance('cart')->add($product->id, $product->name, 1, $product->regular_price)->associate('\App\Models\Product');
-        return redirect()->route('cart')->with('success_cart', 'Item Added To Cart');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Item Added To Cart']);
+        $this->dispatch('refreshCartIcon');
     }
 
     //Add Item To Wishlist
@@ -25,7 +26,7 @@ class HomeComponent extends Component
     {
         $product = Product::findOrFail($id);
         Cart::instance('wishlist')->add($product->id, $product->name, 1, $product->regular_price)->associate('\App\Models\Product');
-        session()->flash('success', 'Item Added To Wishlist');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Item Added To Wishlist']);
         $this->dispatch('wishlistIcon');
     }
 
@@ -34,7 +35,7 @@ class HomeComponent extends Component
     {
         $rowId = Cart::instance('wishlist')->content()->where('id', $idProduct)->first()->rowId;
         Cart::instance('wishlist')->remove($rowId);
-        session()->flash('success', 'Item Removed From Wishlist');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Item Removed From Wishlist']);
         $this->dispatch('wishlistIcon');
     }
     public function render()

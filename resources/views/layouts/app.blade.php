@@ -16,9 +16,10 @@
     <link rel="stylesheet" href="{{ asset('assets-front/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets-front/css/custom.css') }}">
     {{-- Toster --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @livewireStyles
 </head>
 
@@ -444,22 +445,28 @@
     <script src="{{ asset('assets-front/js/shop.js?v=3.3') }}"></script>
 
     {{-- Toster --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    @livewireScripts
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.Livewire.on('flashMessage', function(event) {
+                const {
+                    type,
+                    message
+                } = event[0];
+                if (type === 'success') {
+                    toastr.success(message);
+                } else if (type === 'error') {
+                    toastr.error(message);
+                }
+            });
+        });
+    </script>
 
-    @stack('js')
-    @if (session('success'))
-        <script>
-            toastr.success("{{ session('success') }}");
-        </script>
-    @endif
-    @if (session('error'))
-        <script>
-            toastr.error("{{ session('error') }}");
-        </script>
-    @endif
+    @livewireScripts
 
 </body>
 

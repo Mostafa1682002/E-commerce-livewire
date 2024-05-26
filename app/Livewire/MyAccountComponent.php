@@ -44,7 +44,7 @@ class MyAccountComponent extends Component
             'phone' => $this->phone,
         ]);
         $this->reset(['password', 'password_confirmation']);
-        session()->flash('success_up', 'Success Update Your Account');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Success Update Your Account']);
     }
 
     public function render()

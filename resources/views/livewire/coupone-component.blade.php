@@ -30,22 +30,3 @@
         </div>
     </div>
 </div>
-
-
-@push('js')
-
-    @if (session('coupon_error'))
-        @script
-            <script>
-                toastr.error("{{ session('coupon_error') }}");
-            </script>
-        @endscript
-    @endif
-    @if (session('coupon_success'))
-        @script
-            <script>
-                toastr.success("{{ session('coupon_success') }}");
-            </script>
-        @endscript
-    @endif
-@endpush

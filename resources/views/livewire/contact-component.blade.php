@@ -70,11 +70,3 @@
         </section>
     </main>
 </div>
-
-@if (session('success_contact'))
-    @script
-        <script>
-            toastr.success("{{ session('success_contact') }}");
-        </script>
-    @endscript
-@endif

@@ -41,13 +41,3 @@
         </div>
     </div>
 </div>
-
-@push('js')
-    @if (session('success_icon_cart'))
-        @script
-            <script>
-                toastr.success("{{ session('success_icon_cart') }}");
-            </script>
-        @endscript
-    @endif
-@endpush

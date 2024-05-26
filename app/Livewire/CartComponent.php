@@ -19,7 +19,7 @@ class CartComponent extends Component
         $product = Cart::instance('cart')->get($rowId);
         $qty = $product->qty + 1;
         Cart::instance('cart')->update($rowId, $qty);
-        session()->flash('success_cart', 'Update Quantity Of Item');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Update Quantity Of Item']);
         $this->dispatch('refreshCartIcon');
     }
 
@@ -29,7 +29,7 @@ class CartComponent extends Component
         $product = Cart::instance('cart')->get($rowId);
         $qty = $product->qty - 1;
         Cart::instance('cart')->update($rowId, $qty);
-        session()->flash('success_cart', 'Update Quantity Of Item');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Update Quantity Of Item']);
         $this->dispatch('refreshCartIcon');
     }
 
@@ -38,7 +38,7 @@ class CartComponent extends Component
     public function removeCart($rowId)
     {
         Cart::instance('cart')->remove($rowId);
-        session()->flash('success_cart', 'Removed Item From Cart');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Removed Item From Cart']);
         $this->dispatch('refreshCartIcon');
     }
 
@@ -46,7 +46,7 @@ class CartComponent extends Component
     public function removeAllItems()
     {
         Cart::instance('cart')->destroy();
-        session()->flash('success_cart', 'Removed All Items From Cart');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Removed All Items From Cart']);
         $this->dispatch('refreshCartIcon');
     }
 
@@ -65,7 +65,7 @@ class CartComponent extends Component
 
 
         if (!$coupon) {
-            session()->flash('coupon_error', 'Coupon code is invalid!');
+            $this->dispatch('flashMessage', ['type' => 'error', 'message' => 'Coupon code is invalid!']);
             return;
         }
 
@@ -75,7 +75,7 @@ class CartComponent extends Component
             'value' => $coupon->value,
             'cart_value' => $coupon->cart_value
         ]);
-        session()->flash('coupon_success', 'Success Apply Coupon');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Success Apply Coupon']);
     }
 
     public function calculateDiscounts()
@@ -93,17 +93,11 @@ class CartComponent extends Component
         }
     }
 
-
-
-
     public function removeCoupon()
     {
         session()->forget('coupon');
-        session()->flash('coupon_success', 'Success Remove Coupon code ');
+        $this->dispatch('flashMessage', ['type' => 'success', 'message' => 'Success Remove Coupon code ']);
     }
-
-
-
 
 
     public function render()
